@@ -6,9 +6,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class IndexComponent implements OnInit {
 
-  constructor() { }
+	title = "@maxtoan";
+	
+  	constructor() { }
 
-  ngOnInit() {
-  }
-
+  	ngOnInit() {
+  	}
 }
