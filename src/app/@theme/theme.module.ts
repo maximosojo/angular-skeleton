@@ -25,6 +25,7 @@ const BASE_MODULES = [
 
 const COMPONENTS = [
   HeaderComponent,
+  SampleLayoutComponent
 ];
 
 @NgModule({
