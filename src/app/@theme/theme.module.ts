@@ -2,6 +2,9 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
+import { TranslateModule, TranslateLoader, TranslatePipe} from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 import {
   HeaderComponent
@@ -20,7 +23,9 @@ const BASE_MODULES = [
   CommonModule, 
   FormsModule, 
   ReactiveFormsModule,
-  RouterModule
+  RouterModule,
+  HttpClientModule,
+  TranslateModule
 ];
 
 const COMPONENTS = [
