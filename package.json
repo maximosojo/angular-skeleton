@@ -8,8 +8,7 @@
     "start": "node server.js",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",
-    "postinstall": "ng build --aot --prod --build-optimizer"
+    "e2e": "ng e2e"
   },
   "private": true,
   "dependencies": {
@@ -31,7 +30,7 @@
     "express": "^4.17.1"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.802.0",
+    "@angular-devkit/build-angular": "0.13.0",
     "@angular/cli": "~8.2.0",
     "@angular/compiler-cli": "^8.2.0",
     "@angular/language-service": "^8.2.0",
