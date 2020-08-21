@@ -3,14 +3,15 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { CookieService } from '../services/cookie.service';
+import { LocalStorageService } from '../services/local-storage.service';
 import { User } from '../models/auth.models';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
     user: User;
+    itemKey: String = 'ssupp.current';
 
-    constructor(private http: HttpClient, private cookieService: CookieService) {
+    constructor(private http: HttpClient, private localStorageService: LocalStorageService) {
     }
 
     /**
@@ -18,7 +19,7 @@ export class AuthenticationService {
      */
     public currentUser(): User {
         if (!this.user) {
-            this.user = JSON.parse(this.cookieService.getCookie('currentUser'));
+            this.user = JSON.parse(this.localStorageService.getItem(this.itemKey));
         }
         return this.user;
     }
@@ -35,7 +36,7 @@ export class AuthenticationService {
                 if (user && user.token) {
                     this.user = user;
                     // store user details and jwt in cookie
-                    this.cookieService.setCookie('currentUser', JSON.stringify(user), 1);
+                    this.localStorageService.setItem(this.itemKey, JSON.stringify(user), 1);
                 }
                 return user;
             }));
@@ -46,7 +47,7 @@ export class AuthenticationService {
      */
     logout() {
         // remove user from local storage to log user out
-        this.cookieService.deleteCookie('currentUser');
+        this.localStorageService.deleteItem(this.itemKey);
         this.user = null;
     }
 }
