@@ -1,0 +1,44 @@
+<form class="authentication-form" [formGroup]="signupForm" (ngSubmit)="onSubmit()" novalidate>
+  <ngb-alert type="danger" *ngIf="error" [dismissible]="false">{{ error }}</ngb-alert>
+  <div>
+    <label>Name</label>
+      <input type="text" formControlName="name"
+        [ngClass]="{ 'is-invalid': submitted && f.name.errors }" id="name"
+        placeholder="Your full name" />
+      <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+        <div *ngIf="f.name.errors.required">Name is required</div>
+      </div>
+  </div>
+
+  <div>
+    <label>Email Address</label>
+    <input type="email" formControlName="email"
+        [ngClass]="{ 'is-invalid': submitted && f.email.errors }" id="email"
+        placeholder="hello@coderthemes.com" />
+      <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+        <div *ngIf="f.email.errors.required">Email is required</div>
+        <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+      </div>
+  </div>
+
+  <div>
+    <label>Password</label>
+      <input type="password" formControlName="password"
+        [ngClass]="{ 'is-invalid': submitted && f.password.errors }" id="password"
+        placeholder="Enter your password" />
+      <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+        <div *ngIf="f.password.errors.required">Password is required</div>
+      </div>
+  </div>
+
+  <div>
+      <input type="checkbox" id="checkbox-signup" checked>
+      <label for="checkbox-signup">
+        I accept <a href="javascript: void(0);">Terms and Conditions</a>
+      </label>
+  </div>
+  <div>
+    <button type="submit">Sign Up</button>
+  </div>
+</form>
+<p>Already have account? <a routerLink="/account/login">Login</a></p>
