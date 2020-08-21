@@ -9,7 +9,7 @@ import { User } from '../models/auth.models';
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
     user: User;
-    itemKey: String = 'ssupp.current';
+    itemKey: 'ssupp.current';
 
     constructor(private http: HttpClient, private localStorageService: LocalStorageService) {
     }
@@ -19,7 +19,7 @@ export class AuthenticationService {
      */
     public currentUser(): User {
         if (!this.user) {
-            this.user = JSON.parse(this.localStorageService.getItem(this.itemKey));
+            this.user = this.localStorageService.getItem(this.itemKey);
         }
         return this.user;
     }
@@ -36,7 +36,7 @@ export class AuthenticationService {
                 if (user && user.token) {
                     this.user = user;
                     // store user details and jwt in cookie
-                    this.localStorageService.setItem(this.itemKey, JSON.stringify(user), 1);
+                    this.localStorageService.setItem(this.itemKey, user);
                 }
                 return user;
             }));
