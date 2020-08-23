@@ -11,6 +11,7 @@ import {
 } from './components';
 
 import {
+  AuthLayoutComponent,
   SampleLayoutComponent
 } from './layouts';
 
@@ -30,6 +31,7 @@ const BASE_MODULES = [
 
 const COMPONENTS = [
   HeaderComponent,
+  AuthLayoutComponent,
   SampleLayoutComponent
 ];
 

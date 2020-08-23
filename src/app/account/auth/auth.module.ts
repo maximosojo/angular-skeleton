@@ -7,18 +7,22 @@ import { SignupComponent } from './signup/signup.component';
 import { AuthRoutingModule } from './auth-routing';
 import { ConfirmComponent } from './confirm/confirm.component';
 import { PasswordresetComponent } from './passwordreset/passwordreset.component';
+import { AuthComponent } from './auth.component';
+import { ThemeModule } from '../../@theme/theme.module';
 
 @NgModule({
   	declarations: [
   		LoginComponent,
   		SignupComponent,
   		ConfirmComponent,
-  		PasswordresetComponent
+  		PasswordresetComponent,
+      AuthComponent
   	],
   	imports: [
     	CommonModule,
     	ReactiveFormsModule,
     	NgbAlertModule,
+      ThemeModule,
     	AuthRoutingModule
   	]
 })
