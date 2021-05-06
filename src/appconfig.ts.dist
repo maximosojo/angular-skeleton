@@ -1,0 +1,4 @@
+export const appconfig = {
+	path: "http://localhost:3000/api",
+	x_api_key: "ZzsLi3FJTYbVD4Hn2qGheRu9yPSXcA1QjWtEgNBp"
+}

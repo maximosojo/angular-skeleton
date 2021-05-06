@@ -9,9 +9,19 @@ import { User } from '../models/auth.models';
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
     user: User;
-    itemKey: 'ssupp.current';
+    itemKey: string;
+    tokenKey: string;
 
     constructor(private http: HttpClient, private localStorageService: LocalStorageService) {
+        this.itemKey = 'ssupp.current';
+        this.tokenKey = 'ssupp.token';
+    }
+
+    /**
+     * Register current user
+     */
+    public setCurrentUser(data) {        
+        this.localStorageService.setItem(this.itemKey, data);
     }
 
     /**
@@ -24,22 +34,20 @@ export class AuthenticationService {
         return this.user;
     }
 
-    /**
-     * Performs the auth
-     * @param email email of user
-     * @param password password of user
-     */
-    login(email: string, password: string) {
-        return this.http.post<any>(`/api/login`, { email, password })
-            .pipe(map(user => {
-                // login successful if there's a jwt token in the response
-                if (user && user.token) {
-                    this.user = user;
-                    // store user details and jwt in cookie
-                    this.localStorageService.setItem(this.itemKey, user);
-                }
-                return user;
-            }));
+    // Registra el token de la sesion actual
+    public setCurrentToken(data) { 
+        this.localStorageService.setItem(this.tokenKey, data);
+    }
+
+    // Retorna el token logueado en la sesión
+    public getCurrentToken() {
+        const token = this.localStorageService.getItem(this.tokenKey);
+        let currentToken = false;
+        if (token) {
+            currentToken = token.token;
+        }
+
+        return currentToken;
     }
 
     /**

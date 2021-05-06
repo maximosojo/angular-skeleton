@@ -1,10 +1,8 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { first } from 'rxjs/operators';
-
-import { AuthenticationService } from '../../../core/services/auth.service';
-
+import { AuthenticationService } from 'src/app/core/services/auth.service';
+import { HttpService } from 'src/app/core//services/http.service';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +17,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
   loading = false;
 
   constructor(private formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router,
-              private authenticationService: AuthenticationService) { }
+              private authenticationService: AuthenticationService, private httpService: HttpService) { }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -55,16 +53,21 @@ export class LoginComponent implements OnInit, AfterViewInit {
     }
 
     this.loading = true;
-    this.authenticationService.login(this.f.email.value, this.f.password.value)
-      .pipe(first())
-      .subscribe(
-        data => {
+
+    const data = {
+      username: this.f.email.value,
+      password : this.f.password.value
+    }
+    
+    this.httpService.post(`/api/login`,data)
+      .subscribe( data => {
+          // Registro de token
+          this.authenticationService.setCurrentToken(data)
           this.router.navigate([this.returnUrl]);
           this.loading = false;
-        },
-        error => {
-          this.error = error;
-          this.loading = false;
-        });
+      },error => {
+        this.error = error;
+        this.loading = false;
+      })
   }
 }
